@@ -2,7 +2,9 @@
     "name": "meteors",
     "description": "",
     "dependencies": {
-        "device": "*"
+        "device": "*",
+        "pxt-button-combos": "github:jwunderl/pxt-button-combos#v0.0.24",
+        "bakground": "pub:86993-93459-82727-65179"
     },
     "files": [
         "main.blocks",
@@ -22,5 +24,5 @@
     "supportedTargets": [
         "arcade"
     ],
-    "preferredEditor": "blocksprj"
+    "preferredEditor": "tsprj"
 }
