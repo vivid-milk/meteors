@@ -72,7 +72,7 @@ sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSp
     scene.cameraShake(4, 500)
     otherSprite.destroy(effects.disintegrate)
     sprite.startEffect(effects.fire, 200)
-    //info.changeLifeBy(-1)
+    info.changeLifeBy(-1)
 })
 game.onGameOver(function(win: Boolean){
     ship1.startEffect(effects.fire)
@@ -80,6 +80,7 @@ game.onGameOver(function(win: Boolean){
     while(true){
         ship1.x += 2 * endLoop(ship1)
         ship2.x += 2 * endLoop(ship2)
+        pause(100)
     }
 })
 
