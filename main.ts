@@ -43,45 +43,18 @@ c c c c c c c c c c c c c c c c
 . . . . . . 1 1 1 1 1 . . . . . 
 . . . . . . . 1 1 1 . . . . . . 
 . . . . . . . . 1 . . . . . . . 
-`, function(sprite: Sprite, location: tiles.Location) {
-    sprite.destroy()
-    game.over(false)
-})
-scene.onOverlapTile(SpriteKind.Player, img`
-. . . . . . . . 1 . . . . . . . 
-. . . . . . . 1 1 1 . . . . . . 
-. . . . . . 1 1 1 1 1 . . . . . 
-. . . . . 1 8 8 8 8 8 1 . . . . 
-. . . . 1 8 8 8 8 8 8 8 1 . . . 
-. . . 1 8 8 c c c c c 8 8 1 . . 
-c c c c c c c c c c c c c c c c 
-. . c c c c 9 9 9 9 9 c c c . . 
-. . . . c c c c c c c c c . . . 
-. . . . . c 9 9 9 9 9 c . . . . 
-. . . . . c c c c c c c . . . . 
-. . . . . c 9 9 9 9 9 c . . . . 
-. . . . . . c c c c c . . . . . 
-. . . . . . . c c c . . . . . . 
-. . . . . . . c c c . . . . . . 
-. . . . . . . . c . . . . . . . 
 `, function (sprite: Sprite, location: tiles.Location) {
-    sprite.destroy()
-    game.over(false)
+    if(!hitMotherShip){
+        hitMotherShip = true
+        scene.cameraShake(4, 500)
+        info.changeLifeBy(-1)
+    }
 })
 sprites.onOverlap(SpriteKind.Player, SpriteKind.Enemy, function (sprite, otherSprite) {
     scene.cameraShake(4, 500)
     otherSprite.destroy(effects.disintegrate)
     sprite.startEffect(effects.fire, 200)
     info.changeLifeBy(-1)
-})
-game.onGameOver(function(win: Boolean){
-    ship1.startEffect(effects.fire)
-    ship2.startEffect(effects.fire)
-    while(true){
-        ship1.x += 2 * endLoop(ship1)
-        ship2.x += 2 * endLoop(ship2)
-        pause(100)
-    }
 })
 
 let projectile2: Sprite = null
@@ -118,6 +91,7 @@ ship2.setPosition(screen.width * 3 / 4, screen.height / 3)
 controller.player2.moveSprite(ship2, 100, 100)
 info.setLife(6)
 let hazzard1 = 1 // x position of tile
+let hitMotherShip = false // doesn't insta kill you with the mother ship
 
 game.onUpdate(function () {
     teleport(ship1)
@@ -152,7 +126,9 @@ c c c c c c c c c c c c c c c c
 . . . . . . . 1 1 1 . . . . . . 
 . . . . . . . . 1 . . . . . . . 
 `)
+    hitMotherShip = false
 })
+
 function teleport(ship: Sprite){
     if (ship.x < 10) {
         ship.x = screen.width - 11
